@@ -123,7 +123,7 @@ const Education = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full py-24 min-h-screen flex flex-col justify-center container mx-auto px-6 md:px-12" id="education">
+    <section ref={containerRef} className="relative w-full py-24 min-h-screen flex flex-col justify-center container mx-auto px-6 md:px-12" id="education" style={{ position: 'relative', zIndex: 2, marginTop: 0 }}>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         {/* LEFT: Institution Card */}
         <div>

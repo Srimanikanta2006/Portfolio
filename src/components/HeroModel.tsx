@@ -145,13 +145,17 @@ function NeuralSphere({ scrollProgress, mousePos }: any) {
 export default function HeroModel() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [opacity, setOpacity] = useState(1);
 
   useEffect(() => {
     const fn = () => {
       const max = document.body.scrollHeight - window.innerHeight;
       setScrollProgress(max > 0 ? window.scrollY / max : 0);
+      // Fade out when user scrolls past hero section
+      const fade = Math.max(0, 1 - (window.scrollY / window.innerHeight) * 2);
+      setOpacity(fade);
     };
-    window.addEventListener('scroll', fn);
+    window.addEventListener('scroll', fn, { passive: true });
     fn();
     return () => window.removeEventListener('scroll', fn);
   }, []);
@@ -159,8 +163,8 @@ export default function HeroModel() {
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       setMousePos({
-        x: (e.clientX / window.innerWidth - 0.5) * 2,   // -1 to +1
-        y: (e.clientY / window.innerHeight - 0.5) * 2    // -1 to +1
+        x: (e.clientX / window.innerWidth - 0.5) * 2,
+        y: (e.clientY / window.innerHeight - 0.5) * 2
       });
     };
     window.addEventListener('mousemove', onMove);
@@ -168,7 +172,18 @@ export default function HeroModel() {
   }, []);
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-10 w-full h-full md:w-1/2 md:right-0 md:left-auto">
+    <div style={{
+      position: 'fixed',
+      right: 0,
+      top: 0,
+      width: '40vw',
+      height: '100vh',
+      zIndex: 10,
+      pointerEvents: 'none',
+      background: 'transparent',
+      opacity,
+      transition: 'opacity 0.4s ease',
+    }}>
       <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
         <ambientLight intensity={0.5} />
         <NeuralSphere scrollProgress={scrollProgress} mousePos={mousePos} />

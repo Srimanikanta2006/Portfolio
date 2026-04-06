@@ -349,6 +349,8 @@ html, body { overflow-x: hidden; }
 /* Section Spacing — Apple-level breathing */
 section { padding: 10rem 8vw; position: relative; z-index: 2; }
 .hero-section { padding-top: 0; min-height: 100vh; }
+/* Projects section manages its own padding via .proj-track */
+#projects { padding: 0; }
 #about, #skills, #projects, #education, #awards, #contact {
   scroll-margin-top: 80px;
 }

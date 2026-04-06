@@ -126,44 +126,26 @@ const Projects = () => {
     const section = sectionRef.current;
     if (!track || !section) return;
 
-    const totalWidth = track.scrollWidth - window.innerWidth;
+    const ctx = gsap.context(() => {
+      const getScrollAmount = () => -(track.scrollWidth - window.innerWidth);
 
-    const tween = gsap.to(track, {
-      x: -totalWidth,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top top',
-        end: () => `+=${totalWidth}`,
-        scrub: 1.2,
-        pin: true,
-        anticipatePin: 1,
-      }
-    });
-
-    const cards = track.querySelectorAll('.proj-card');
-    const cardTweens = Array.from(cards).map((card, i) =>
-      gsap.fromTo(card,
-        { opacity: 0, y: 60, rotateY: 15 },
-        {
-          opacity: 1, y: 0, rotateY: 0,
-          scrollTrigger: {
-            trigger: section,
-            start: `top+=${i * 300} top`,
-            end: `top+=${i * 300 + 400} top`,
-            scrub: 1,
-          }
+      gsap.to(track, {
+        x: getScrollAmount,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: () => `+=${Math.abs(getScrollAmount())}`,
+          scrub: 1.2,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
         }
-      )
-    );
-
-    return () => {
-      tween.kill();
-      cardTweens.forEach(t => t.kill());
-      ScrollTrigger.getAll().forEach(t => {
-        if (t.vars.trigger === section) t.kill();
       });
-    };
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (

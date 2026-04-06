@@ -4,13 +4,14 @@
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
-  z-index: 20;
+  z-index: 5;
 }
 
 .proj-header {
   position: absolute;
-  top: 3rem; left: 8vw;
-  z-index: 10;
+  top: 6rem; left: 8vw;
+  z-index: 20;
+  pointer-events: none;
 }
 
 .proj-scroll-hint {
@@ -23,9 +24,10 @@
 .proj-track {
   display: flex;
   gap: 2.5rem;
-  padding: 12rem 8vw 4rem;
-  align-items: stretch;
+  padding: 14rem 8vw 4rem;
+  align-items: center;
   will-change: transform;
+  height: 100vh;
 }
 
 .proj-card {
