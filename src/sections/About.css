@@ -1,0 +1,50 @@
+/* About Section Styles */
+.about-bento {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.bento-card {
+  background: #0d1730;
+  border: 0.5px solid rgba(0,212,255,0.12);
+  border-radius: 16px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  cursor: default;
+}
+.bento-card:hover {
+  border-color: rgba(0,212,255,0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,212,255,0.1);
+}
+.bento-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--card-accent);
+  opacity: 0.8;
+}
+.bento-icon {
+  font-size: 2rem; margin-bottom: 0.75rem; display: block;
+  filter: drop-shadow(0 0 8px var(--card-accent));
+}
+.bento-text {
+  font-size: 13px; color: #7a9bbf; line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+}
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: #00d4ff;
+  margin-bottom: 1rem; display: block;
+}
+
+@media (max-width: 768px) {
+  .about-bento {
+    grid-template-columns: 1fr;
+  }
+}

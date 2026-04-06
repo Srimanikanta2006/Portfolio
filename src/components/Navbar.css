@@ -1,0 +1,138 @@
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 9999;
+  padding: 0 3rem;
+  height: 70px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.4s, backdrop-filter 0.4s, border-bottom 0.4s;
+}
+.navbar.scrolled {
+  background: rgba(5, 11, 24, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 0.5px solid rgba(0, 212, 255, 0.12);
+}
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px; font-weight: 700;
+  color: #00d4ff;
+  text-shadow: 0 0 20px rgba(0,212,255,0.6), 0 0 40px rgba(0,212,255,0.3);
+  cursor: pointer;
+  transition: text-shadow 0.3s;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.nav-logo:hover {
+  text-shadow: 0 0 30px rgba(0,212,255,0.9), 0 0 60px rgba(0,212,255,0.5);
+}
+.nav-links {
+  display: flex;
+  gap: 2.5rem;   /* FIX: this was the missing gap */
+  list-style: none;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+.nav-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: #7a9bbf;
+  text-decoration: none;
+  position: relative;
+  padding: 4px 0;
+  letter-spacing: 0.02em;
+  transition: color 0.25s;
+  display: inline-block;
+}
+.nav-link::before {
+  content: attr(data-text);
+  position: absolute; top: 0; left: 0;
+  color: #00d4ff;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  transition: clip-path 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  white-space: nowrap;
+}
+.nav-link:hover { color: transparent; }
+.nav-link:hover::before {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+.nav-link::after {
+  content: ''; position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1.5px;
+  background: linear-gradient(to right, #00d4ff, #7c3aed);
+  transition: width 0.35s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+/* RIGHT SIDE — Open to Work dot + Hire Me button */
+.nav-right {
+  display: flex; align-items: center; gap: 1.5rem;
+}
+.open-badge {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: #7a9bbf;
+  font-family: 'JetBrains Mono', monospace;
+}
+.open-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+@keyframes dot-pulse {
+  0%,100% { box-shadow: 0 0 8px #10b981; }
+  50% { box-shadow: 0 0 16px #10b981, 0 0 30px rgba(16,185,129,0.4); }
+}
+.hire-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: #00d4ff;
+  border: 1px solid rgba(0,212,255,0.5);
+  border-radius: 8px;
+  padding: 8px 20px;
+  background: transparent;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  position: relative; overflow: hidden;
+  transition: color 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+.hire-btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #00d4ff, #7c3aed);
+  transform: translateX(-101%);
+  transition: transform 0.35s cubic-bezier(0.77, 0, 0.175, 1);
+  z-index: -1;
+}
+.hire-btn:hover { color: #050b18; }
+.hire-btn:hover::before { transform: translateX(0); }
+
+.hamburger { display: none; }
+
+/* Mobile hamburger */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hidden-mobile { display: none; }
+  .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; z-index: 10000; position: relative; }
+  .hamburger span {
+    width: 24px; height: 2px;
+    background: #00d4ff; border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  .mobile-menu {
+    position: fixed; inset: 0;
+    background: rgba(5,11,24,0.97);
+    backdrop-filter: blur(20px);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 2.5rem; z-index: 9998;
+  }
+  .mobile-menu .nav-link { font-size: 28px; }
+}
