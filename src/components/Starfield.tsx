@@ -54,10 +54,14 @@ const Stars = () => {
       tempObj.scale.set(s, s, s);
       tempObj.updateMatrix();
 
-      mesh.current!.setMatrixAt(i, tempObj.matrix);
+      if (mesh.current) {
+        mesh.current.setMatrixAt(i, tempObj.matrix);
+      }
     });
 
-    mesh.current.instanceMatrix.needsUpdate = true;
+    if (mesh.current) {
+      mesh.current.instanceMatrix.needsUpdate = true;
+    }
   });
 
   return (
@@ -73,7 +77,6 @@ const Starfield = () => {
     <div className="fixed inset-0 z-0 pointer-events-none bg-bg-primary">
       {/* ✅ FIX: removed fog from Canvas props */}
       <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
-        {/* ✅ FIX: correct fog placement */}
         <fog attach="fog" args={["#050b18", 0.06]} />
         <Stars />
       </Canvas>
