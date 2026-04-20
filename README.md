@@ -4,7 +4,7 @@ A modern, interactive developer portfolio built with **React**, **TypeScript**, 
 
 ---  
 
-[Live Demo]([https://your-portfolio-demo-link.com](https://psmkportfolio-nine.vercel.app/))  
+[Live Demo]([https://psmkportfolio-nine.vercel.app/])
 
 ---
 
